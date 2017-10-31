@@ -25,17 +25,23 @@ This will return CpGs mapping to multiple gene regions, because the string 'TP53
 One correct way to identify the CpG probes mapping to a certain gene is by intersect with the chromosome coordinates of the gene region of interest, and there are resources readily available to streamline the process of working with genome coordinates (see Bioconductor's GenomicRanges library). 
 
 Perhaps the simplest way to identify the CpGs mapping to a gene of interest is to leverage the semantic nature of the manifest entries using RegularExpressions. In this example we do this with the grepl() R function, though others are available. One solution is thus:
-`anno.tp53.cpg <- anno[grepl("(^|;)TP53($|;)",anno$UCSC_RefGene_Name),]`
+```r
+anno.tp53.cpg <- anno[grepl("(^|;)TP53($|;)",anno$UCSC_RefGene_Name),]
+```
 This correctly returns annotation for CpGs mapping to any region of the TP53 gene. One sanity check is to make sure all the CpGs are located relatively close to one another, and not on separate chromosomes. 
 
 Regular expressions are handy, but it's likely not necessary to obtain a comprehensive knowledge for the handful of data manipulation tasks mentioned here. Suffice it to note the following about the pattern used: The parentheses and "|" symbols delineate optional conditions to the left and right of the character string of the gene name we care about; the symbols "^" and "$" are special characters in RegEx syntax denoting beginning and end of string, respectively; and ";" is not a special character, but in the annotation it delineates entries for separate transcripts. These conditions eliminate the possibility of a gene with the embedded string "TP53" being erroneously returned.
 
 One further complication is with correctly mapping gene IDs, Names, or Accessions to the corresponding region (eg. "Body", "1stExon", "TSS200", etc.) in the variable UCSC_RefGene_Group. The following strategy would fail here:
-`anno.promoter <- anno[anno$UCSC_RefGene_Group %in% c("TSS200","TSS1500","5'UTR"),]; anno.tp53.promoter <- anno[grepl("(^|;)TP53($|;)",anno$UCSC_RefGene_Name),]`
+```r
+anno.promoter <- anno[anno$UCSC_RefGene_Group %in% c("TSS200","TSS1500","5'UTR"),]; 
+anno.tp53.promoter <- anno[grepl("(^|;)TP53($|;)",anno$UCSC_RefGene_Name),]
+```
 This fails because the entries in UCSC_RefGene_Name correspond to each entry in UCSC_RefGene_Group in a position-dependant manner, meaning that a CpG with a promoter region entry in a string of transcript regions for UCSC_RefGene_Group will not necessarily map to the promoter region of a transcript for the gene of interest (remember there are polycistronic regions where a CpG can map to transcripts from multiple genes!). 
 
 One correct way to identify CpGs mapping to the TP53 gene would be the following:
-`cpg.list <- c();
+```r
+cpg.list <- c();
 for(i in 1:nrow(anno.tp53.cpg)){
   idi <- unlist(strsplit(anno.tp53.cpg$UCSC_RefGene_Name,";"))
   grpi <- unlist(strsplit(anno.tp53.cpg$UCSC_RefGene_Group,";"))
@@ -49,7 +55,8 @@ for(i in 1:nrow(anno.tp53.cpg)){
       cpg.list <- c(cpg.list,anno.tp53.cpg$Name[i])
     }
   }
-}`
+}
+```
 
 However, this approach taxes computer resources and is frankly awkward to write. 
 
