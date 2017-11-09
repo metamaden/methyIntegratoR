@@ -4,6 +4,8 @@ plotIntegrator <- function(expr.obj,
                            plot.title,
                            limits.x=c(-10,10),
                            limits.y=c(0,1),
+                           xlab="",
+                           ylab="",
                            geom.hline=0,
                            geom.vline=0,
                            colors.subtypes.scale=c("black"),
@@ -29,7 +31,7 @@ plotIntegrator <- function(expr.obj,
     ggi <- ggplot(dfi,aes(expr,methy,color=subtype))+
       geom_point()+
       stat_ellipse(geom="polygon",alpha=0.2,aes(fill=dfi$subtype))+
-      labs(x = "",y = "")+
+      labs(x = xlab,y = ylab)+
       ggtitle(plot.title)+
       theme(text=element_text(size=16, family="Arial"))+ 
       scale_color_manual(values=colors.subtypes.scale)+
@@ -42,7 +44,7 @@ plotIntegrator <- function(expr.obj,
     
   } else{
     ggi <- ggplot(dfi,aes(expr,methy,color=subtype))+
-      geom_point()+labs(x = "",y = "")+
+      geom_point()+labs(x = xlab,y = ylab)+
       ggtitle(plot.title)+
       theme(text=element_text(size=16, family="Arial"))+ 
       scale_color_manual(values=colors.subtypes.scale)+
