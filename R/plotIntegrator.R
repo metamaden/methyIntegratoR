@@ -60,3 +60,27 @@ plotIntegrator <- function(expr.obj,
   
   
 }
+
+
+# example
+# plotIntegrator(expr.obj=c(glist[[goi]]$expr.dat$hm.expr,
+ #                                            glist[[goi]]$expr.dat$im.expr,
+ #                                            glist[[goi]]$expr.dat$lm.expr,
+ #                                            glist[[goi]]$expr.dat$mm.expr,
+ #                                            glist[[goi]]$expr.dat$normal.expr),
+ #                                 methyl.obj=c(glist[[goi]]$pmethyl.dat$hm.pmethyl,
+ #                                              glist[[goi]]$pmethyl.dat$im.pmethyl,
+ #                                              glist[[goi]]$pmethyl.dat$lm.pmethyl,
+ #                                              glist[[goi]]$pmethyl.dat$mm.pmethyl,
+ #                                              glist[[goi]]$pmethyl.dat$normal.pmethyl),
+ #                                 subtypes.obj=c(rep("HM",length(glist[[goi]]$pmethyl.dat$hm.pmethyl)),
+ #                                                rep("IM",length(glist[[goi]]$pmethyl.dat$im.pmethyl)),
+ #                                                rep("LM",length(glist[[goi]]$pmethyl.dat$lm.pmethyl)),
+ #                                                rep("MM",length(glist[[goi]]$pmethyl.dat$mm.pmethyl)),
+ #                                                rep("normal",length(glist[[goi]]$pmethyl.dat$normal.pmethyl))),
+ #                                 plot.title=goi,
+ #                                 colors.subtypes.scale=c("gold3", "coral2", "gray60","dodgerblue","purple"),
+ #                                 colors.subtypes.fill=c("yellow","coral","gray60","lightblue","purple"),
+ #                                 legend.pos="right",
+ #                                 limits.x=c(-20,10),
+ #                                 limits.y=c(-1,2))
