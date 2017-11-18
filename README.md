@@ -22,7 +22,7 @@ Many straightforward query strategies will fail with the minfi annotation. For i
 1. `anno[anno$UCSC_RefGene_Name=="TP53",]`
 This will fail because many CpGs map to multiple transcripts, which is reflected in the manifest as a string of gene names separated by ";" such as: "TP53;TP53;TP53" for the variable UCSC_RefGene_Name. 
 2. `anno[grepl("TP53",anno$UCSC_RefGene_Name),]` 
-This will return CpGs mapping to multiple gene regions, because the string 'TP53' is attributable to multiple full RefSeq gene names.
+This will return CpGs mapping to multiple gene regions, because the string 'TP53' is attributable to multiple full RefSeq gene names (eg. TP53RK and TP53BP2).
 
 One correct way to identify the CpG probes mapping to a certain gene is by intersect with the chromosome coordinates of the gene region of interest, and there are resources readily available to streamline the process of working with genome coordinates (see Bioconductor's GenomicRanges library). 
 
