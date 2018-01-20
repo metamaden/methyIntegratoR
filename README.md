@@ -64,4 +64,6 @@ However, this approach taxes computer resources and is frankly awkward to write.
 
 The above issues are assuaged in methyIntegratoR. Separate, custom annotations for HM450K and EPIC arrays have been provided that allow fast and accurate CpG region lists to be generated with simple commands. 
 
-
+## NEWS/TODO
+### 1/20/18
+Planned Improvements. Methy Integrator should empower arbitrary overlays between CpGs and genomic objects. Consider defining a wrapper function that enables quick and intuitive cross-checking of overlap between CpGs and genomic features (promoters, enhancers, quenchers, etc.). 
