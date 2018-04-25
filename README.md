@@ -13,12 +13,15 @@ There are several pre-prepared genome annotation files, for convenience, which c
 library(methyIntegratoR)
 
 # 1. Load Genomic Features prepared files
+
+# 1A. CpG Island IDs
 # load the hg19 CpG Islands in GenomicRanges format (derived from UCSC Table Browser bedfile)
 data(cgislgr_ucsctb_hg19) 
 data(cgislgr_ucsctb_hg19)
 length(cgisl) # returns:
 # [1] 28691
 
+# 1B. Gene Promoter Coordinates
 # load the gene promoter regions (permissive), compiled from 'EnsDb.Hsapiens.v75' package
 data(promotersgr_ensdbgene_hg19)
 length(pgr) # returns:
