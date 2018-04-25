@@ -7,6 +7,55 @@ Download this library using the following in the R console:
 # Overview
 There are numerous recurring analysis strategies when working with Illumina methylation arrays. This package seeks to simplify some of these routine tasks which, though relatively straightforward, can consist in many steps. 
 
+## Genomic Annotation Files
+There are several pre-prepared genome annotation files, for convenience, which can be loaded using the 'data()' function as follows:
+```r
+library(methyIntegratoR)
+
+# 1. Load Genomic Features prepared files
+# load the hg19 CpG Islands in GenomicRanges format (derived from UCSC Table Browser bedfile)
+data(cgislgr_ucsctb_hg19) 
+data(cgislgr_ucsctb_hg19)
+length(cgisl) # returns:
+# [1] 28691
+
+# load the gene promoter regions (permissive), compiled from 'EnsDb.Hsapiens.v75' package
+data(promotersgr_ensdbgene_hg19)
+length(pgr) # returns:
+# [1] 22642
+
+# 2. Load repman "repeated manifest" objects for HM450K and EPIC platforms
+# Note: repeated manifests show only unique CpG-transcript interactions (by RefGene ID, NOT Genbank)
+# Thus, CpGs not overlapping a transcript are omitted.
+
+# 2A. HM450K platform
+data(repman_hm450)
+head(repman450) # returns
+#     accession     name   group        cpg
+#1 NM_001164471    TSPY4    Body cg00050873
+#2    NR_001553 FAM197Y2 TSS1500 cg00050873
+#3    NR_001543   TTTY14  TSS200 cg00212031
+#4    NM_004202   TMSB4Y 1stExon cg00214611
+#5    NM_004202   TMSB4Y   5'UTR cg00214611
+#6    NM_134259    TBL1Y  TSS200 cg01707559
+
+# 2B. EPIC platform
+data(repman_epic)
+head(repman.epic) # returns:
+#     accession   name   group        cpg
+#1    NM_017798 YTHDF1  TSS200 cg18478105
+#2    NM_001415 EIF2S3 TSS1500 cg09835024
+#3    NM_013355   PKN3 TSS1500 cg14361672
+#4    NM_198082 CCDC57    Body cg01763666
+#5    NM_022489   INF2    Body cg12950382
+#6 NM_001031714   INF2    Body cg12950382
+
+# To load complete annotation files/manifests, including gene- and non-gene-mapping CpGs, use the following Bioconductor packages:
+# 1. IlluminaHumanMethylationEPICanno.ilm10b2.hg19 (EPIC platform)
+# 2. IlluminaHumanMethylation450kanno.ilmn12.hg19 (HM450K platform)
+
+```
+
 ## Region Methylation
 In order to derive region methylation summaries from arrays, it is necessary to interpret the manifest documents provided by Illumina and distributed through libraries such as minfi. While ideal for certain purposes and constrained to one unique CpG per row, manifests accessed through the minfi R library can be tricky to use even to perform a simple task such as "find the promoter methylation of gene TP53." The difficulties, and the solutions provided in this package, are detailed in the "Example" subsection, below. In short, this package takes as input a RefSeq Accession or Gene Symbol/Name and returns region CpGs that map to the region of interest in the selected array platform.
 
