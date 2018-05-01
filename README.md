@@ -22,10 +22,43 @@ length(cgisl) # returns:
 # [1] 28691
 
 # 1B. Gene Promoter Coordinates
-# load the gene promoter regions (permissive), compiled from 'EnsDb.Hsapiens.v75' package
-data(promotersgr_ensdbgene_hg19)
-length(pgr) # returns:
-# [1] 22642
+# load the gene promoter regions (permissive), compiled from 'TxDb.hg19' or 'EnsDb.Hsapiens.v75' packages
+data(gene_promoters_grlist_hg19)
+
+names(genepromoters.grlist) # returns:
+#[1] "txdb19.promotersgr"  "ensdb37.promotersgr"
+
+mcols(genepromoters.grlist$txdb19.promotersgr) # returns:
+#DataFrame with 23056 rows and 2 columns
+#          gene_id      symbol
+#      <character> <character>
+#1               1        A1BG
+#2              10        NAT2
+#3             100         ADA
+#4            1000        CDH2
+#5           10000        AKT3
+#...           ...         ...
+#23052        9991       PTBP3
+#23053        9992       KCNE2
+#23054        9993       DGCR2
+#23055        9994    CASP8AP2
+#23056        9997        SCO2
+
+mcols(genepromoters.grlist$ensdb37.promotersgr) # returns: 
+#DataFrame with 20314 rows and 6 columns
+#              gene_id   gene_name                   entrezid   gene_biotype seq_coord_system      symbol
+#          <character> <character>                <character>    <character>      <character> <character>
+#1     ENSG00000186092       OR4F5                      79501 protein_coding       chromosome       OR4F5
+#2     ENSG00000237683  AL627309.1 100996768;728728;101929819 protein_coding       chromosome  AL627309.1
+#3     ENSG00000235249      OR4F29         26683;81399;729759 protein_coding       chromosome      OR4F29
+#4     ENSG00000185097      OR4F16         81399;729759;26683 protein_coding       chromosome      OR4F16
+#5     ENSG00000269831  AL669831.1                            protein_coding       chromosome  AL669831.1
+#...               ...         ...                        ...            ...              ...         ...
+#20310 ENSG00000187191        DAZ3                57054;57055 protein_coding       chromosome        DAZ3
+#20311 ENSG00000205916        DAZ4           57055;57135;1617 protein_coding       chromosome        DAZ4
+#20312 ENSG00000185894       BPY2C         9083;442867;442868 protein_coding       chromosome       BPY2C
+#20313 ENSG00000172288        CDY1                253175;9085 protein_coding       chromosome        CDY1
+#20314 ENSG00000269393  AC007965.1                            protein_coding       chromosome  AC007965.1
 
 # 2. Load repman "repeated manifest" objects for HM450K and EPIC platforms
 # Note: repeated manifests show only unique CpG-transcript interactions (by RefGene ID, NOT Genbank)
